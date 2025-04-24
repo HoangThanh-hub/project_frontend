@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Home</title>
+    <link rel="stylesheet" href="/css/index.css">
+</head>
+<body>
+
+    <header>
+        <p>📒 Tài Chính Cá Nhân K24_Rikkei</p>
+        <button id="buttonAc" onclick="logOut()">Tài khoản ▼</button>
+    </header>
+
+
+    <div class="title">
+        <div class="title1">
+            <h2>🎯 Kiểm soát chi tiêu thông minh</h2>
+            <p>Theo dõi ngân sách và thu chi hằng tháng dễ dàng</p>
+        </div>
+    </div>
+
+    <!-- content -->
+     <div id="content">
+        <h1>📊 Quản Lý Tài Chính Cá Nhân</h1>
+
+        <!-- chọn tháng -->
+        <div id="chooseMonth">
+            <p>📅 Chọn tháng:</p>
+            <input type="month" id="month" name="month">
+        </div>
+
+        <!-- ngân sách -->
+        <div id="budget">
+            <p>💰 Ngân sách tháng:</p>
+            <input type="number" id="moneyTarget" placeholder="VD: 5000000">
+            <button>Lưu</button>
+        </div>
+
+        <!-- tiênn dư -->
+         <div>
+            <p>Số tiền còn lại</p>
+
+         </div>
+
+
+         
+     </div>
+
+
+
+
+
+    <footer>&copy 2025 Quản Lý Tài Chính Cá Nhân. by Trần Hoàng Thanh!</footer>
+
+    <script src="/js/index.js"></script>
+</body>
+</html>

@@ -1,0 +1,69 @@
+body{
+    font-family: 'Roboto', sans-serif;
+}   
+
+.form{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+
+.login{
+    display: flex;
+    flex-direction: column;
+    margin-top: 20vh;
+    background-color: white;
+    border: 1px none;
+    border-radius: 10px;
+    width: 31vw ;
+    height: 44.4vh;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+
+.login h2 {
+    text-align: center;
+}
+
+#name{
+    margin-left: 1.2vw;
+    width: 28vw;
+    height: 5vh;
+    font-size: 1.2vw;
+}
+
+#password{
+    margin-left: 1.2vw;
+    width: 28vw;
+    height: 5vh;
+    font-size: 1.2vw;
+}
+
+#checkPassword{
+    margin-left: 1.2vw;
+    width: 28vw;
+    height: 5vh;
+    font-size: 1.2vw;
+}
+
+#button{
+    margin-left: 1.2vw;
+    width: 28.7vw;
+    height: 6vh;
+    background-color: #16A34A;
+    color: white;
+    border-radius: 5px;
+    border: none;
+    font-size: 1.4vw;
+}
+
+.login p {
+    text-align: center;
+    font-size: 1.2vw;
+}
+
+.login a {
+    text-decoration: none;
+}
