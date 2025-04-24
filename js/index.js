@@ -1,12 +1,22 @@
-// navbar tài khoản
-function logOut() {
-    const logOutButton = document.createElement('button');
-    logOutButton.textContent = 'Đăng xuất';
-    logOutButton.onclick = () => {
-      alert('Bạn đã đăng xuất!');
 
-    };
+// lưu tổng ngân sách
+function saveBudget() {
+  const budgetInput = document.getElementById('budgetInput');
+  const errorBudget = document.getElementById('errorBudget');
   
-    const buttonAc = document.getElementById('buttonAc');
-    buttonAc.appendChild(logOutButton);
+  if (budgetInput.value.trim() === "") {
+    errorBudget.innerHTML = "Không được để trống";
+  } else {
+    errorBudget.innerHTML = "";
+    budgetInput.value = "";
+    openModal();
   }
+}
+
+function openModal() {
+  document.getElementById('successModal').style.display = 'block';
+}
+
+function closeModal() {
+  document.getElementById('successModal').style.display = 'none';
+}

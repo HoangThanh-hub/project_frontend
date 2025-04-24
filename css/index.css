@@ -61,3 +61,166 @@ footer{
     margin-top: 3vh;
 
 }
+
+#chooseMonth{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 20px;
+}
+
+#chooseMonth input{
+    height: 4vh;
+    border-radius: 5px;
+    border: 1px solid gainsboro;
+}
+
+#budget{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 20px;
+}
+
+#budget input{
+    height: 4vh;
+    width: 14vw;
+    border-radius: 5px;
+    border: 1px solid gainsboro;
+}
+
+#budget button{
+    background-color: #3b82f6;
+    color: white;
+    height: 4.5vh;
+    border: none;
+    border-radius: 5px;
+    width: 4vw;
+    cursor: pointer;
+}
+
+#errorBudget {
+    color: red;
+    font-size: 14px;
+    position: absolute;
+    top: 73vh;
+    left: 46vw;
+  }
+
+.modal {
+display: none;
+position: fixed;
+left: 0; top: 0;
+width: 100%; height: 100%;
+background-color: rgba(0,0,0,0.4);
+padding-top: 20vh;
+}
+
+.modalContent {
+background-color: #fff;
+margin: auto;
+padding: 20px;
+border-radius: 8px;
+width: 300px;
+text-align: center;
+}
+
+.close {
+color: #aaa;
+float: right;
+font-size: 28px;
+font-weight: bold;
+cursor: pointer;
+}
+
+
+#money{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 20px;
+    flex-direction: column;
+}
+
+#manageCategory p{
+    margin: 10px 10px;
+}
+
+#manageCategory input{
+    margin: 10px 10px;
+    height: 4vh;
+    width: 15vw;
+    border-radius: 5px;
+    border: 1px solid gainsboro;
+}
+
+#manageCategory button{
+    margin: 10px 10px;
+    height: 4.5vh;
+    width: 10vw;
+    border-radius: 5px;
+    border: 1px solid gainsboro;
+    background-color: #21c55e ;
+    color: white;
+    border: none;
+}
+
+#spending{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 1vw;
+}
+
+#spending input{
+    width: 10vw;
+    height: 4vh;
+    border-radius: 5px;
+    border: 1px solid gainsboro;
+}
+#spending select{
+    width: 10vw;
+    height: 4.7vh;
+    border-radius: 5px;
+    border: 1px solid gainsboro;
+}
+#spending button{
+    width: 10vw;
+    height: 4.7vh;
+    border-radius: 5px;
+    background-color: #6366f1;
+    color: white;
+    border: none;
+}
+
+#history p{
+    font-size: 1.4vw;
+    margin: 1vh 1vw;
+}
+
+#searchHistory{
+    display: flex;
+    justify-content: center;
+    gap: 1vw;
+}
+
+#searchHistory input{
+    width: 10vw;
+    height: 5vh;
+    border-radius: 5px;
+    border: 1px solid gainsboro;
+}
+#searchHistory select{
+    width: 10vw;
+    height: 5.4vh;
+    border-radius: 5px;
+    border: 1px solid gainsboro;
+}
+#searchHistory button{
+    width: 5.4vh;
+    height: 5.4vh;
+    border-radius: 5px;
+    background-color: #1e4ed8;
+    color: white;
+    border: none;
+}

@@ -5,12 +5,13 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Home</title>
     <link rel="stylesheet" href="/css/index.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 </head>
 <body>
 
     <header>
         <p>📒 Tài Chính Cá Nhân K24_Rikkei</p>
-        <button id="buttonAc" onclick="logOut()">Tài khoản ▼</button>
+        <button id="buttonAc">Tài khoản ▼</button>
     </header>
 
 
@@ -34,18 +35,78 @@
         <!-- ngân sách -->
         <div id="budget">
             <p>💰 Ngân sách tháng:</p>
-            <input type="number" id="moneyTarget" placeholder="VD: 5000000">
-            <button>Lưu</button>
+            <input type="number" id="budgetInput" placeholder=" VD: 5000000">
+            <button onclick="saveBudget()">Lưu</button>
         </div>
+        <span id="errorBudget" ></span>
+
+        <!-- Modal -->
+        <span id="successModal" class="modal">
+            <div class="modalContent">
+            <span class="close" onclick="closeModal()"><i class="fa-solid fa-xmark"></i></span>
+            <p>Đã lưu ngân sách</p>
+            </div>
+        </span>
 
         <!-- tiênn dư -->
-         <div>
-            <p>Số tiền còn lại</p>
+         <div id="money">
+            <p>Số tiền còn lại: </p>
+            <span id="sumMoney"></span>
 
          </div>
 
+         <!-- quan lý danh mục -->
+        <div id="manageCategory"> 
+            <p>💼 Quản lý danh mục (theo tháng)</p>
+            
+            <input type="text" placeholder=" Tên danh mục" id="category">
+            <input type="text" placeholder=" Giới hạn (VND)" id="gioiHan">
+            <button>Thêm danh mục</button> 
+            
+            <span id="updateCategory"></span>
+            
+        </div>
 
-         
+        <!-- chi tiêu -->
+        <div id="spending">
+            <input type="text" placeholder=" Số tiền">
+            <select id="selectCategory">
+                <option value="0" checked>Chọn danh mục</option>
+            </select>
+            <input type="text" placeholder=" Ghi chú">
+            <button>Thêm</button>
+        </div>
+
+        <!-- lịch sử giao dịch -->
+         <div id="history">
+            <p>🧾 Lịch sử giao dịch</p>
+            <span id="searchHistory">
+                <input type="text" placeholder=" Tìm nội dung">
+                <button><i class="fa-solid fa-magnifying-glass"></i></button>
+                <select id="">
+                    <option value="1">Sắp xếp theo giá</option>
+                </select>
+            </span>
+
+            <span id="updateHistory"></span>
+
+            <span id="pagination"></span>
+         </div>
+
+
+         <!-- cảnh báo -->
+        <div id="warning">
+            <p>cảnh báo</p>
+        </div>
+
+
+        <!-- Thống kê -->
+        <div id="overview">
+            <p>📆 Thống kê chi tiêu các tháng</p>
+        </div>
+
+
+
      </div>
 
 
