@@ -1,22 +1,14 @@
+const user = JSON.parse(localStorage.getItem("currentAcc"))
+document.getElementById("userName").innerText = `Tài khoản: ${user.email}`;
 
-// lưu tổng ngân sách
-function saveBudget() {
-  const budgetInput = document.getElementById('budgetInput');
-  const errorBudget = document.getElementById('errorBudget');
-  
-  if (budgetInput.value.trim() === "") {
-    errorBudget.innerHTML = "Không được để trống";
-  } else {
-    errorBudget.innerHTML = "";
-    budgetInput.value = "";
-    openModal();
+
+
+function logout() {
+  const flag = confirm("Bạn có chắc chắn muốn đăng xuất không?");
+  if (flag) {
+      localStorage.removeItem("currentAcc");
+      window.location.href = "/pages/login.html";
   }
 }
 
-function openModal() {
-  document.getElementById('successModal').style.display = 'block';
-}
 
-function closeModal() {
-  document.getElementById('successModal').style.display = 'none';
-}

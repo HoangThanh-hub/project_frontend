@@ -5,9 +5,16 @@ body{
 
 header{
     display: flex;
-    justify-content: space-around;
+    justify-content: space-between;
     background-color: #4338CA;
     color: white;
+}
+
+header span{
+    font-size: 1.2vw;
+    position: absolute;
+    top: 3.2vh;
+    left: 60vw;
 }
 
 header button{

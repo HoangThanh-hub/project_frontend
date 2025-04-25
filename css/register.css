@@ -1,5 +1,6 @@
 body{
     font-family: 'Roboto', sans-serif;
+    background-color: #f3f4f6;
 }   
 
 .form{
@@ -18,13 +19,20 @@ body{
     border: 1px none;
     border-radius: 10px;
     width: 31vw ;
-    height: 44.4vh;
+    height: auto;
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
 }
 
 
 .login h2 {
     text-align: center;
+}
+
+#email{
+    margin-left: 1.2vw;
+    width: 28vw;
+    height: 5vh;
+    font-size: 1.2vw;
 }
 
 #name{
@@ -67,3 +75,10 @@ body{
 .login a {
     text-decoration: none;
 }
+
+.error {
+    color: red;
+    font-size: 14px;
+    margin-top: 1vh;
+    margin-left: 1.3vw;
+  }

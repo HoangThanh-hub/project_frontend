@@ -11,14 +11,19 @@
         <div class="login">
             <h2>🔐 Đăng nhập</h2>
             <input type="text" placeholder="Tên đăng nhập" id="name">
+            <span id="errorName" class="error"></span>
             <br>
             <input type="password" placeholder="Mật khẩu" id="password">
+            <span id="errorPassword" class="error"></span>
             <br>
-            <button id="button">Đăng nhập</button>
+            <button id="button" onclick="login()">Đăng nhập</button>
             <div>
                 <p>Chưa có tài khoản? <a href="./register.html">Đăng ký ngay</a></p>
             </div>
         </div>
     </div>
+
+
+    <script src="/js/login.js"></script>
 </body>
 </html>

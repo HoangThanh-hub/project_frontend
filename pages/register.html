@@ -9,18 +9,32 @@
 <body>
     <div class="form">
         <div class="login">
-            <h2>Đăng ký tài khoản</h2>
-            <input type="text" placeholder="Tên tài khoản" id="name">
-            <br>
-            <input type="password" placeholder="Mật khẩu" id="password">
-            <br>
-            <input type="password" placeholder="Nhập lại mật khẩu" id="checkPassword">
-            <br>
-            <button id="button">Đăng ký</button>
-            <div>
-                <p>Đã có tài khoản? <a href="./login.html">Đăng Nhập</a></p>
-            </div>
+          <h2>Đăng ký tài khoản</h2>
+
+          <input type="text" placeholder="Email" id="email">
+          <span id="errorEmail" class="error"></span>
+          <br>
+
+          <input type="text" placeholder="Tên đăng nhập" id="name">
+          <span id="errorName" class="error"></span>
+          <br>
+      
+          <input type="password" placeholder="Mật khẩu" id="password">
+          <span id="errorPassword" class="error"></span>
+          <br>
+      
+          <input type="password" placeholder="Nhập lại mật khẩu" id="checkPassword">
+          <span id="errorCheckPassword" class="error"></span>
+          <br>
+      
+          <button id="button" onclick="register()">Đăng ký</button>
+      
+          <div>
+            <p>Đã có tài khoản? <a href="./login.html">Đăng Nhập</a></p>
+          </div>
         </div>
-    </div>
+      </div>
+
+    <script src="/js/register.js"></script>
 </body>
 </html>
