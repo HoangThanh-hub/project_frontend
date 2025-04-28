@@ -30,7 +30,7 @@
         <!-- chọn tháng -->
         <div id="chooseMonth">
             <p>📅 Chọn tháng:</p>
-            <input type="month" id="month" name="month">
+            <input type="month" id="month" name="month" onchange="displayBudget(),renderCategories();">
         </div>
 
         <!-- ngân sách -->
@@ -62,7 +62,7 @@
             
             <input type="text" placeholder=" Tên danh mục" id="category">
             <input type="text" placeholder=" Giới hạn (VND)" id="gioiHan">
-            <button>Thêm danh mục</button> 
+            <button onclick="addCategory()">Thêm danh mục</button> 
             
             <span id="updateCategory"></span>
             

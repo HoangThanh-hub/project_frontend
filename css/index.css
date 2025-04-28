@@ -115,29 +115,29 @@ footer{
   }
 
 .modal {
-display: none;
-position: fixed;
-left: 0; top: 0;
-width: 100%; height: 100%;
-background-color: rgba(0,0,0,0.4);
-padding-top: 20vh;
-}
+    display: none;
+    position: fixed;
+    left: 0; top: 0;
+    width: 100%; height: 100%;
+    background-color: rgba(0,0,0,0.4);
+    padding-top: 20vh;
+    }
 
 .modalContent {
-background-color: #fff;
-margin: auto;
-padding: 20px;
-border-radius: 8px;
-width: 300px;
-text-align: center;
-}
+    background-color: #fff;
+    margin: auto;
+    padding: 20px;
+    border-radius: 8px;
+    width: 300px;
+    text-align: center;
+    }
 
 .close {
-color: #aaa;
-float: right;
-font-size: 28px;
-font-weight: bold;
-cursor: pointer;
+    color: #aaa;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+    cursor: pointer;
 }
 
 
@@ -148,6 +148,64 @@ cursor: pointer;
     gap: 20px;
     flex-direction: column;
 }
+
+#money p{
+    padding: 0px;
+}
+
+#sumMoney{
+    padding-bottom: 1vw;
+    color: #21c55e;
+    font-size:1.5vw;
+}
+
+div #manageCategory{
+    height: auto;
+}
+
+
+
+
+.category-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0px 10px;
+    border-bottom: 1px solid gainsboro ;
+    font-size: 14px;
+    }
+
+
+
+.category-item #editBtn {
+    background: none;
+    border: none;
+    color: red;
+    font-size: 13px;
+    cursor: pointer;
+    margin-left: 8px;
+    transition: color 0.2s;
+    }
+
+.category-item #editBtn:hover{
+    color: darkred;
+}
+
+.category-item #deleteBtn {
+    background: none;
+    border: none;
+    color: red;
+    font-size: 13px;
+    cursor: pointer;
+    margin-left: 8px;
+    transition: color 0.2s;
+}
+
+.category-item #deleteBtn:hover{
+    color: darkred;
+}
+
+
 
 #manageCategory p{
     margin: 10px 10px;
