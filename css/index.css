@@ -7,6 +7,7 @@ header{
     display: flex;
     justify-content: space-between;
     background-color: #4338CA;
+    height: 10vh;
     color: white;
 }
 
@@ -62,7 +63,7 @@ footer{
 #content div{
     background-color: white;
     width: 47vw;
-    height: 14vh;
+    height: auto;
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
     border-radius: 10px;
     margin-top: 3vh;
@@ -289,3 +290,119 @@ div #manageCategory{
     color: white;
     border: none;
 }
+.pagination{
+    text-align: center;
+}
+
+/* Modal sửa danh mục */
+.edit-modal  {
+    height: 100vw;
+    width: 100vw;
+    display: none;
+    position: fixed;
+    z-index: 1000;
+    left: 0;
+    top: 0;
+    overflow: auto;
+    background-color: rgba(0,0,0,0.6);
+    padding:10vw 0vw;
+}
+
+.edit-modal-content {
+    margin: auto;
+    padding: 30px 20px;
+    border-radius: 10px;
+    box-shadow: 0px 4px 16px rgba(0,0,0,0.25);
+    text-align: center;
+}
+
+.edit-modal-content input {
+    width: 90%;
+    padding: 10px;
+    margin: 10px 0;
+    border-radius: 6px;
+    border: 1px solid #ccc;
+}
+
+.edit-modal-content button {
+    width: 95%;
+    padding: 10px;
+    margin-top: 10px;
+    background-color: #6366f1;
+    color: white;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+}
+
+.edit-modal-content button:hover {
+    background-color: #4f46e5;
+}
+
+.edit-close {
+    float: right;
+    font-size: 26px;
+    font-weight: bold;
+    color: #999;
+    cursor: pointer;
+}
+
+.edit-close:hover {
+    color: #333;
+}
+
+
+/* Modal xoá danh mục */
+.delete-modal {
+    display: none;
+    position: fixed;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgba(0,0,0,0.6);
+    padding-top: 100px;
+}
+
+.delete-modal-content {
+    background-color: #fff;
+    margin: auto;
+    padding: 2vw 5vw;
+    width: auto;
+    border-radius: 10px;
+    text-align: center;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+}
+
+.delete-modal-content p {
+    font-size: 18px;
+    margin-bottom: 20px;
+}
+
+.delete-modal-buttons {
+    display: flex;
+    justify-content: space-between;
+    gap: 10px;
+}
+
+.btn-confirm {
+    flex: 1;
+    color: white;
+    border: none;
+    padding: 10px;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+
+.btn-cancel {
+    flex: 1;
+    color: white;
+    border: none;
+    padding: 10px;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+

@@ -1,8 +1,11 @@
+const checkCurrentAcc = JSON.parse(localStorage.getItem("currentAcc") );
+
+if (checkCurrentAcc === null) {
+    window.location.href = "/pages/login.html";
+}
+
 const user = JSON.parse(localStorage.getItem("currentAcc"))
 document.getElementById("userName").innerText = `Tài khoản: ${user.email}`;
-
-
-
 
 
 function logout() {
@@ -13,10 +16,6 @@ function logout() {
   }
 }
 
-let checkCurrentAcc= JSON.parse(localStorage.getItem("CurrentAcc")) || [];
-if (checkCurrentAcc.length === 0){
-    window.location.href = "/pages/login.html";
-}
 
 // tạo biến mảng lấy từ local
 let budgets = JSON.parse(localStorage.getItem("budgets")) || [];
@@ -104,8 +103,8 @@ function renderCategories() {
                 item.innerHTML = `
                 <span>${cat.name} - Giới hạn: ${cat.limit.toLocaleString()} VND</span>
                 <span >
-                    <button id="editBtn">Sửa</button>
-                    <button id="deleteBtn">Xóa</button>
+                    <button id="editBtn" onclick="editCat('${cat.name}')">Sửa</button>
+                    <button id="deleteBtn" onclick="deleteCategory('${cat.name}')">Xóa</button>
                 </span>
                 `;
 
@@ -141,7 +140,7 @@ function addCategory() {
     };
 
     if (!Array.isArray(budgets[budgetIndex].categories)) {
-        budgets[budgetIndex].categories = []; // Khởi tạo categories nếu chưa có
+        budgets[budgetIndex].categories = []; 
     }
 
     budgets[budgetIndex].categories.push(newCategory);
@@ -153,4 +152,314 @@ function addCategory() {
     document.getElementById("gioiHan").value = "";
 
     renderCategories();
+    loadCategoryOptions();
+};
+
+// hàm chỉnh sửa danh mục
+function editCat(catName) {
+    const month = document.getElementById("month").value;
+    let budgets = JSON.parse(localStorage.getItem("budgets")) || [];
+
+    const budgetIndex = budgets.findIndex(index => index.email === user.email && index.month === month);
+    const categoryIndex = budgets[budgetIndex].categories.findIndex(index => index.name === catName);
+    
+
+    const category = budgets[budgetIndex].categories[categoryIndex];
+
+    
+    document.getElementById("editCategoryName").value = category.name;
+    document.getElementById("editCategoryLimit").value = category.limit;
+
+    document.getElementById("saveEditBtn").onclick = function() {
+        saveEditedCategory(catName);
+    };
+
+    document.getElementById("editModal").style.display = "block";
+}
+
+
+function closeEditModal() {
+    document.getElementById("editModal").style.display = "none";
+}
+
+// Hàm lưu danh mục đã chỉnh sửa
+function saveEditedCategory(oldName) {
+    const newName = document.getElementById("editCategoryName").value.trim();
+    const newLimit = parseFloat(document.getElementById("editCategoryLimit").value.trim());
+    const month = document.getElementById("month").value;
+    let budgets = JSON.parse(localStorage.getItem("budgets")) || [];
+
+    const budgetIndex = budgets.findIndex(index => index.email === user.email && index.month === month);
+    const categoryIndex = budgets[budgetIndex].categories.findIndex(index => index.name === oldName);
+
+    if (!newName || isNaN(newLimit) || newLimit <= 0) {
+        alert("Vui lòng nhập thông tin hợp lệ!");
+        return;
+    }
+
+    // Cập nhật dữ liệu
+    budgets[budgetIndex].categories[categoryIndex].name = newName;
+    budgets[budgetIndex].categories[categoryIndex].limit = newLimit;
+
+    localStorage.setItem("budgets", JSON.stringify(budgets));
+
+    closeEditModal();
+    renderCategories(); 
+    loadCategoryOptions()
+}
+
+
+// hàm xoá danh mục
+function deleteCategory(catName) {
+    openDeleteModal(catName, "category");
+}
+
+// hàm xác nhận xoá danh mục
+function confirmDeleteCategory(catName) {
+    const month = document.getElementById("month").value;
+    let budgets = JSON.parse(localStorage.getItem("budgets")) || [];
+
+    const budgetIndex = budgets.findIndex(index => index.email === user.email && index.month === month);
+    const categoryIndex = budgets[budgetIndex].categories.findIndex(index => index.name === catName);
+
+    // Kiểm tra xem có giao dịch nào liên quan đến danh mục này không
+    const hasTransactions = budgets[budgetIndex].history.some(item => item.category === catName);
+
+    if (hasTransactions) {
+        alert("Không thể xóa danh mục vì có giao dịch liên quan!");
+        document.getElementById("deleteCategoryModal").style.display = "none";
+        return;
+    }
+    
+
+    // Xóa danh mục
+    budgets[budgetIndex].categories.splice(categoryIndex, 1);
+
+    localStorage.setItem("budgets", JSON.stringify(budgets));
+    
+    document.getElementById("deleteCategoryModal").style.display = "none";
+    
+    renderCategories(); 
+}
+
+// hàm mở modal xoá
+function openDeleteModal(item, type = "category") {
+    const deleteModal = document.getElementById("deleteCategoryModal");
+    deleteModal.style.display = "block";
+
+    document.getElementById("confirmDeleteBtn").onclick = function () {
+        if (type === "category") {
+            confirmDeleteCategory(item);
+        } else if (type === "history") {
+            confirmDeleteHistory(item);
+        }
+    };
+
+    document.getElementById("cancelDeleteBtn").onclick = function () {
+        deleteModal.style.display = "none";
+    };
+}
+
+// hàm thêm chi tiêu
+function addSpending() {
+    const amount = parseFloat(document.getElementById("spendingAmount").value.trim());
+    const selectedCategory = document.getElementById("selectCategory").value;
+    const note = document.getElementById("spendingNote").value.trim();
+    const month = document.getElementById("month").value;
+
+    if (isNaN(amount) || amount <= 0) {
+        alert("Vui lòng nhập số tiền hợp lệ.");
+        return;
+    }
+
+    if (selectedCategory === "0") {
+        alert("Vui lòng chọn danh mục chi tiêu.");
+        return;
+    }
+
+    let budgets = JSON.parse(localStorage.getItem("budgets")) || [];
+    const budgetIndex = budgets.findIndex(index => index.email === user.email && index.month === month);
+
+
+    const categoryIndex = budgets[budgetIndex].categories.findIndex(index => index.name === selectedCategory);
+
+
+    budgets[budgetIndex].categories[categoryIndex].budgetSpent += amount;
+
+
+    // Lưu vào lịch sử
+    if (!budgets[budgetIndex].history) {
+        budgets[budgetIndex].history = [];
+    }
+
+    budgets[budgetIndex].history.push({
+        category: selectedCategory,
+        amount: amount,
+        note: note,
+    });
+
+    budgets[budgetIndex].budget -= amount;
+    
+    localStorage.setItem("budgets", JSON.stringify(budgets));
+
+    alert("Thêm chi tiêu thành công!");
+
+
+    document.getElementById("spendingAmount").value = "";
+    document.getElementById("spendingNote").value = "";
+    document.getElementById("selectCategory").value = "0";
+
+    displayBudget();
+    renderHistory();
+}
+
+
+
+function loadCategoryOptions() {
+    const select = document.getElementById("selectCategory");
+    const month = document.getElementById("month").value;
+
+    select.innerHTML = '<option value="0">Chọn danh mục</option>';
+
+    const budgets = JSON.parse(localStorage.getItem("budgets")) || [];
+    const currentUser = JSON.parse(localStorage.getItem("currentAcc"));
+
+    const budget = budgets.find(index => index.email === currentUser.email && index.month === month);
+
+    if (budget && Array.isArray(budget.categories)) {
+        budget.categories.forEach(cat => {
+            const option = document.createElement("option");
+            option.value = cat.name;
+            option.textContent = cat.name;
+            select.appendChild(option);
+        });
+    }
+}
+
+
+
+// hàm xoá giao dịch
+function deleteHistoryItem(note) {
+    openDeleteModal(note, "history");
+}
+
+// xác nhận xoá giao dịch
+function confirmDeleteHistory(note) {
+    const month = document.getElementById("month").value;
+    let budgets = JSON.parse(localStorage.getItem("budgets")) || [];
+    const budgetIndex = budgets.findIndex(index => index.email === user.email && index.month === month);
+
+    const historyIndex = budgets[budgetIndex].history.findIndex(item => item.note === note);
+
+   
+    const deletedItem = budgets[budgetIndex].history[historyIndex];
+
+    
+    budgets[budgetIndex].budget += deletedItem.amount;
+
+    
+    const categoryIndex = budgets[budgetIndex].categories.findIndex(cat => cat.name === deletedItem.category);
+    budgets[budgetIndex].categories[categoryIndex].budgetSpent -= deletedItem.amount;
+
+    // Xoá giao dịch
+    budgets[budgetIndex].history.splice(historyIndex, 1);
+
+    localStorage.setItem("budgets", JSON.stringify(budgets));
+
+    // Cập nhật giao diện
+    displayBudget();
+    renderHistory();
+    
+
+    document.getElementById("deleteCategoryModal").style.display = "none";
+}
+
+let currentPage = 0;  // Biến theo dõi trang hiện tại
+const itemsPerPage = 5;  // Số giao dịch mỗi trang
+
+// Hàm hiển thị danh sách giao dịch với phân trang
+function renderHistory() {
+    const month = document.getElementById("month").value;
+    const keyword = document.getElementById("searchInput")?.value?.toLowerCase() || "";
+    const sortOption = document.getElementById("sortOption")?.value || "";
+
+    const historyContainer = document.getElementById("updateHistory");
+    let budgets = JSON.parse(localStorage.getItem("budgets")) || [];
+    const budget = budgets.find(b => b.email === user.email && b.month === month);
+
+    historyContainer.innerHTML = ""; 
+
+    if (!budget || !budget.history || budget.history.length === 0) {
+        historyContainer.innerHTML = "<p>Không có giao dịch nào trong tháng này.</p>";
+        historyContainer.style.textAlign = "center";
+        historyContainer.style.fontSize = "16px";
+        historyContainer.style.color = "red";
+        historyContainer.style.padding = "20px";  
+        return;
+    }
+
+    // Lọc theo từ khoá tìm kiếm
+    let filteredHistory = budget.history.filter(item =>
+        item.note.toLowerCase().includes(keyword)
+    );
+
+    // Sắp xếp theo giá tiền
+    if (sortOption === "asc") {
+        filteredHistory.sort((a, b) => a.amount - b.amount);
+    } else if (sortOption === "desc") {
+        filteredHistory.sort((a, b) => b.amount - a.amount);
+    }
+
+    // Phân trang
+    const startIndex = currentPage * itemsPerPage;
+    const endIndex = Math.min(startIndex + itemsPerPage, filteredHistory.length);
+    const pageHistory = filteredHistory.slice(startIndex, endIndex);
+
+    // Hiển thị các giao dịch của trang hiện tại
+    pageHistory.forEach((item) => {
+        const row = document.createElement("span");
+        row.classList.add("history-item");
+        row.style.display = "flex";
+        row.style.justifyContent = "space-between";
+        row.style.borderBottom = '1px solid gainsboro';
+        row.style.padding = '1.5vw';
+        row.style.color = 'black';
+    
+        row.innerHTML = `
+            <span>${item.category}- ${item.note}: ${item.amount.toLocaleString()} VND</span>
+            <span style="color: red; cursor: pointer;" onclick="deleteHistoryItem('${item.note}')">Xoá</span>
+        `;
+    
+        historyContainer.appendChild(row);
+    });
+
+    renderPagination(Math.ceil(filteredHistory.length / itemsPerPage)); // Cập nhật phân trang theo kết quả lọc
+}
+
+
+// Hàm phân trang
+const changePage = (page) => {
+    currentPage = page;
+    renderHistory();  // Hiển thị lại giao dịch của trang mới
+}
+
+// Hàm render phân trang
+const renderPagination = (totalPages) => {
+    const pagination = document.getElementById("pagination");
+    let pageHTML = new Array(totalPages).fill(1)
+        .reduce((temp, _, index) => temp + `<li class="page-item ${currentPage === index ? 'active' : ''}" onclick="changePage(${index})"><a class="page-link" href="#">${index + 1}</a></li>`, "");
+
+    if (currentPage > 0) {
+        pageHTML = ` <li class="page-item ${currentPage === 0 ? 'disabled' : ''}" onclick="changePage(${currentPage - 1})">
+            <a class="page-link" href="#">Previous</a>
+          </li>` + pageHTML;
+    }
+    
+    if (currentPage < totalPages - 1) {
+        pageHTML += `<li class="page-item ${currentPage === totalPages - 1 ? 'disabled' : ''}" onclick="changePage(${currentPage + 1})">
+            <a class="page-link" href="#">Next</a>
+          </li>`;
+    }
+    
+    pagination.innerHTML = pageHTML;  // Hiển thị phân trang
 };

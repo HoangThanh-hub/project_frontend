@@ -6,6 +6,7 @@
     <title>Home</title>
     <link rel="stylesheet" href="/css/index.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.5/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-SgOJa3DmI69IUzQ2PVdRZhwQ+dy64/BUtbMJw1MZ8t5HZApcHrRKUc4W0kG879m7" crossorigin="anonymous">
 </head>
 <body>
 
@@ -30,7 +31,7 @@
         <!-- chọn tháng -->
         <div id="chooseMonth">
             <p>📅 Chọn tháng:</p>
-            <input type="month" id="month" name="month" onchange="displayBudget(),renderCategories();">
+            <input type="month" id="month" name="month" onchange="displayBudget(),renderCategories(); loadCategoryOptions(); renderHistory()">
         </div>
 
         <!-- ngân sách -->
@@ -65,34 +66,65 @@
             <button onclick="addCategory()">Thêm danh mục</button> 
             
             <span id="updateCategory"></span>
+
+                <!-- Modal sửa danh mục -->
+            <span id="editModal" class="edit-modal">
+                <div class="edit-modal-content">
+                    <span class="edit-close" onclick="closeEditModal()">&times;</span>
+                    <h2>Sửa danh mục</h2>
+                    <input type="text" id="editCategoryName" placeholder="Tên danh mục">
+                    <input type="number" id="editCategoryLimit" placeholder="Giới hạn (VND)">
+                    <button id="saveEditBtn">Lưu</button>
+                </div>
+            </span>
             
+
+            <!-- Modal xác nhận xoá danh mục -->
+            <span id="deleteCategoryModal" class="delete-modal">
+                <div class="delete-modal-content">
+                    <p>Bạn có chắc chắn muốn xoá danh mục này không?</p>
+                    <span class="delete-modal-buttons">
+                        <button id="confirmDeleteBtn" class="btn-confirm">Xác nhận</button>
+                        <button id="cancelDeleteBtn" class="btn-cancel">Huỷ</button>
+                    </span>
+                </div>
+            </span>
         </div>
+
+        <span id="editCategory"></span>
+
 
         <!-- chi tiêu -->
         <div id="spending">
-            <input type="text" placeholder=" Số tiền">
+            <input type="number" id="spendingAmount" placeholder=" Số tiền">
             <select id="selectCategory">
                 <option value="0" checked>Chọn danh mục</option>
             </select>
-            <input type="text" placeholder=" Ghi chú">
-            <button>Thêm</button>
+            <input type="text" id="spendingNote" placeholder=" Ghi chú">
+            <button onclick="addSpending()">Thêm</button>
         </div>
+
+
+
 
         <!-- lịch sử giao dịch -->
          <div id="history">
             <p>🧾 Lịch sử giao dịch</p>
             <span id="searchHistory">
-                <input type="text" placeholder=" Tìm nội dung">
-                <button><i class="fa-solid fa-magnifying-glass"></i></button>
-                <select id="">
-                    <option value="1">Sắp xếp theo giá</option>
+                <input type="text" placeholder=" Tìm nội dung" id="searchInput" oninput="renderHistory()">
+                <button onclick="filterHistory()"><i class="fa-solid fa-magnifying-glass"></i></button>
+                <select id="sortOption" onchange="renderHistory()">
+                    <option value="default">Sắp xếp theo giá</option>
+                    <option value="asc">Giá tăng dần</option>
+                    <option value="desc">Giá giảm dần</option>
                 </select>
             </span>
-
+            
             <span id="updateHistory"></span>
 
-            <span id="pagination"></span>
-         </div>
+            <ul id="pagination" class="pagination justify-content-center" style="margin-top: 1vw;"></ul>
+            
+         </div> 
 
 
          <!-- cảnh báo -->
@@ -113,9 +145,9 @@
 
 
 
-
     <footer>&copy 2025 Quản Lý Tài Chính Cá Nhân. by Trần Hoàng Thanh!</footer>
 
     <script src="/js/index.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.5/dist/js/bootstrap.bundle.min.js" integrity="sha384-k6d4wzSIapyDyv1kpU366/PK5hCdSbCRGRCMv+eplOQJWyd1fbcAu9OCUj5zNLiq" crossorigin="anonymous"></script>
 </body>
 </html>
