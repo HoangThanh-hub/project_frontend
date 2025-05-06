@@ -42,7 +42,8 @@ function saveBudget() {
     const newBudget = {
         email: user.email,
         month: month,
-        budget: parseFloat(budgetInput)
+        budget: parseFloat(budgetInput),
+        budgetMain:parseFloat(budgetInput)
     };
 
     const index = budgets.findIndex(index => index.email === user.email && index.month === month);
@@ -77,7 +78,6 @@ function displayBudget()  {
         document.getElementById("sumMoney").innerText = "0 VND";
     }
 
-    console.log("Tien da thay doi",money.budget);
 };
 
 
@@ -131,6 +131,27 @@ function addCategory() {
 
     
     const budgetIndex = budgets.findIndex(index => index.email === user.email && index.month === month);
+
+
+    const limit = parseFloat(gioiHan);
+    const currentBudget = budgets[budgetIndex];
+
+    let existingCategories = currentBudget.categories;
+    if (!Array.isArray(existingCategories)) {
+        existingCategories = [];
+    }
+    
+    const totalLimits = existingCategories.reduce((sum, cat) => sum + cat.limit, 0);
+
+    if (limit > currentBudget.budget) {
+        alert("Giới hạn danh mục vượt quá tổng ngân sách tháng!");
+        return;
+    }
+
+    if (totalLimits + limit > currentBudget.budget) {
+        alert("Tổng giới hạn của tất cả danh mục vượt quá ngân sách!");
+        return;
+    }
    
 
     // Tạo danh mục
@@ -154,6 +175,8 @@ function addCategory() {
 
     renderCategories();
     loadCategoryOptions();
+    renderStatistics();
+
 };
 
 // hàm chỉnh sửa danh mục
@@ -198,15 +221,43 @@ function saveEditedCategory(oldName) {
         return;
     }
 
+    const limit = parseFloat(newLimit);
+    const currentBudget = budgets[budgetIndex];
+
+    let existingCategories = currentBudget.categories;
+    if (!Array.isArray(existingCategories)) {
+        existingCategories = [];
+    }
+    
+    const totalLimits = existingCategories.reduce((sum, cat) => sum + cat.limit, 0);
+
+    if (limit > currentBudget.budget) {
+        alert("Giới hạn danh mục vượt quá tổng ngân sách tháng!");
+        return;
+    }
+
+    if (totalLimits + limit > currentBudget.budget) {
+        alert("Tổng giới hạn của tất cả danh mục vượt quá ngân sách!");
+        return;
+    }
+
     // Cập nhật dữ liệu
+    budgets[budgetIndex].history.forEach(index =>{
+        if(index.category === budgets[budgetIndex].categories[categoryIndex].name){
+            index.category = newName;
+        }
+    });
     budgets[budgetIndex].categories[categoryIndex].name = newName;
     budgets[budgetIndex].categories[categoryIndex].limit = newLimit;
+    
+    
 
     localStorage.setItem("budgets", JSON.stringify(budgets));
 
     closeEditModal();
     renderCategories(); 
     loadCategoryOptions();
+    renderHistory();
     checkLimit();
 
 }
@@ -244,6 +295,7 @@ function confirmDeleteCategory(catName) {
     document.getElementById("deleteCategoryModal").style.display = "none";
     
     renderCategories(); 
+    renderStatistics();
 }
 
 // hàm mở modal xoá
@@ -315,11 +367,12 @@ function addSpending() {
 
     displayBudget();
     renderHistory();
+    renderStatistics()
     checkLimit();
 }
 
 
-
+// tải lên danh mục để chọn
 function loadCategoryOptions() {
     const select = document.getElementById("selectCategory");
     const month = document.getElementById("month").value;
@@ -376,6 +429,7 @@ function confirmDeleteHistory(note) {
     displayBudget();
     renderHistory();
     checkLimit();
+    renderStatistics()
     
 
     document.getElementById("deleteCategoryModal").style.display = "none";
@@ -391,7 +445,7 @@ function renderHistory() {
     const sortOption = document.getElementById("sortOption")?.value || "";
 
     const historyContainer = document.getElementById("updateHistory");
-    let budgets = JSON.parse(localStorage.getItem("budgets")) || [];
+    // let budgets = JSON.parse(localStorage.getItem("budgets")) || [];
     const budget = budgets.find(b => b.email === user.email && b.month === month);
 
     historyContainer.innerHTML = ""; 
@@ -433,7 +487,7 @@ function renderHistory() {
         row.style.color = 'black';
     
         row.innerHTML = `
-            <span>${item.category}- ${item.note}: ${item.amount.toLocaleString()} VND</span>
+            <span>${item.category} - ${item.note}: ${item.amount.toLocaleString()} VND</span>
             <span style="color: red; cursor: pointer;" onclick="deleteHistoryItem('${item.note}')">Xoá</span>
         `;
     
@@ -503,7 +557,7 @@ function renderStatistics() {
     const userBudgets = budgets.filter(index => index.email === user.email);
 
     userBudgets.forEach(budgets => {
-        const totalLimit = budgets.categories.reduce((sum, cat) => sum + cat.limit, 0);
+        const totalLimit = budgets.budgetMain;
         const totalSpent = budgets.categories.reduce((sum, cat) => sum + cat.budgetSpent, 0);
         const status = totalSpent <= totalLimit ? "Đạt" : "Không đạt";
             const row = document.createElement("tr");

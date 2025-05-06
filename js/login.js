@@ -9,7 +9,7 @@ errorName.innerText = "";
 errorPassword.innerText = "";
 
 if (name === "") {
-    errorName.innerText = "Vui lòng nhập tên đăng nhập hoặc Email";
+    errorName.innerText = "Vui lòng nhập Email";
     return;
 }
 

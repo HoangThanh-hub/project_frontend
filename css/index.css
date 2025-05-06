@@ -47,6 +47,7 @@ footer{
     width: 53vw;
     height: 16vh;
     margin-top: 24px;
+    padding-top: 2vw;
     border-radius: 10px;
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
 }
@@ -63,7 +64,6 @@ footer{
 #content div{
     background-color: white;
     width: 47vw;
-    height: auto;
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
     border-radius: 10px;
     margin-top: 3vh;
@@ -75,6 +75,11 @@ footer{
     justify-content: center;
     align-items: center;
     gap: 20px;
+    height: 10vw;
+}
+
+#chooseMonth p{
+    padding-top: 1vw;
 }
 
 #chooseMonth input{
@@ -88,6 +93,12 @@ footer{
     justify-content: center;
     align-items: center;
     gap: 20px;
+    height: 10vw;
+
+}
+
+#budget p{
+    padding-top: 1vw;
 }
 
 #budget input{
@@ -111,8 +122,8 @@ footer{
     color: red;
     font-size: 14px;
     position: absolute;
-    top: 73vh;
-    left: 46vw;
+    top: 42.5vw;
+    left: 46.2vw;
   }
 
 .modal {
@@ -146,12 +157,12 @@ footer{
     display: flex;
     justify-content: center;
     align-items: center;
-    gap: 20px;
     flex-direction: column;
+    height: 10vw;
 }
 
 #money p{
-    padding: 0px;
+    padding-top: 2vw;
 }
 
 #sumMoney{
@@ -236,6 +247,7 @@ div #manageCategory{
     justify-content: center;
     align-items: center;
     gap: 1vw;
+    height: 10vw;
 }
 
 #spending input{
