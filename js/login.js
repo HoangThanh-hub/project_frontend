@@ -24,7 +24,7 @@ const users = JSON.parse(localStorage.getItem("users")) || [];
 let success = false;
 
 users.forEach(user => {
-    if ((user.name === name || user.email === name) && user.password === password) {
+    if (( user.email === name) && user.password === password) {
         localStorage.setItem("currentAcc", JSON.stringify(user));
         success = true;
     }

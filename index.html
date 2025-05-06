@@ -31,7 +31,7 @@
         <!-- chọn tháng -->
         <div id="chooseMonth">
             <p>📅 Chọn tháng:</p>
-            <input type="month" id="month" name="month" onchange="displayBudget(),renderCategories(); loadCategoryOptions(); renderHistory()">
+            <input type="month" id="month" name="month" onchange="displayBudget(),renderCategories(); loadCategoryOptions(); renderHistory(); checkLimit(); renderStatistics()">
         </div>
 
         <!-- ngân sách -->
@@ -128,15 +128,27 @@
 
 
          <!-- cảnh báo -->
-        <div id="warning">
-            <p>cảnh báo</p>
-        </div>
+        <div id="warning"></div>
 
 
         <!-- Thống kê -->
+        <!-- Thống kê -->
         <div id="overview">
-            <p>📆 Thống kê chi tiêu các tháng</p>
+            <p style="margin: 1.5vw;">📆 Thống kê chi tiêu các tháng</p>
+            <table class="table" style="margin-left:1.5vw; width: 44vw;">
+                <thead>
+                <tr>
+                    <th scope="col">Tháng</th>
+                    <th scope="col">Chi tiêu</th>
+                    <th scope="col">Ngân sách</th>
+                    <th scope="col">Trạng thái</th>
+                </tr>
+                </thead>
+                <tbody id="statBody">
+                </tbody>
+            </table>
         </div>
+
 
 
 
